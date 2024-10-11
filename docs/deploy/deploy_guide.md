@@ -42,7 +42,7 @@ cd karmada
 
 ## 2. Deploy the Volcano to member clusters
 
-Suggest `Volcano` Version: **1.9.0**
+Suggest `Volcano` Version: **1.10.0**
 
 Follow the [volcano installation guide](https://volcano.sh/en/docs/v1-9-0/installation/) to deploy `Volcano` to the member clusters.
 
@@ -53,9 +53,9 @@ You can install `Volcano` to all member cluster like:
 export KUBECONFIG=/Users/vacant/.kube/members.config
 
 # Deploy Volcano to the member clusters.
-kubectl --context member1 apply -f https://raw.githubusercontent.com/volcano-sh/volcano/release-1.9/installer/volcano-development.yaml
-kubectl --context member2 apply -f https://raw.githubusercontent.com/volcano-sh/volcano/release-1.9/installer/volcano-development.yaml
-kubectl --context member3 apply -f https://raw.githubusercontent.com/volcano-sh/volcano/release-1.9/installer/volcano-development.yaml
+kubectl --context member1 apply -f https://raw.githubusercontent.com/volcano-sh/volcano/release-1.10/installer/volcano-development.yaml
+kubectl --context member2 apply -f https://raw.githubusercontent.com/volcano-sh/volcano/release-1.10/installer/volcano-development.yaml
+kubectl --context member3 apply -f https://raw.githubusercontent.com/volcano-sh/volcano/release-1.10/installer/volcano-development.yaml
 ```
 
 ## 3. Deploy the `Kubernetes Reflector` to share the Karmada's kubeconfig secret to volcano-global namespace
@@ -135,10 +135,10 @@ Required `Volcano` CRD List:
 export KUBECONFIG=/Users/vacant/.kube/karmada.config
 
 # Apply the required CRD to Karmada control plane.
-kubectl --context karmada-apiserver apply -f https://github.com/volcano-sh/volcano/raw/release-1.9/installer/helm/chart/volcano/crd/bases/batch.volcano.sh_jobs.yaml
-kubectl --context karmada-apiserver apply -f https://github.com/volcano-sh/volcano/raw/release-1.9/installer/helm/chart/volcano/crd/bases/scheduling.volcano.sh_podgroups.yaml
-kubectl --context karmada-apiserver apply -f https://github.com/volcano-sh/volcano/raw/release-1.9/installer/helm/chart/volcano/crd/bases/scheduling.volcano.sh_queues.yaml
-kubectl --context karmada-apiserver apply -f https://github.com/volcano-sh/volcano/raw/release-1.9/installer/helm/chart/volcano/crd/bases/bus.volcano.sh_commands.yaml
+kubectl --context karmada-apiserver apply -f https://github.com/volcano-sh/volcano/raw/release-1.10/installer/helm/chart/volcano/crd/bases/batch.volcano.sh_jobs.yaml
+kubectl --context karmada-apiserver apply -f https://github.com/volcano-sh/volcano/raw/release-1.10/installer/helm/chart/volcano/crd/bases/scheduling.volcano.sh_podgroups.yaml
+kubectl --context karmada-apiserver apply -f https://github.com/volcano-sh/volcano/raw/release-1.10/installer/helm/chart/volcano/crd/bases/scheduling.volcano.sh_queues.yaml
+kubectl --context karmada-apiserver apply -f https://github.com/volcano-sh/volcano/raw/release-1.10/installer/helm/chart/volcano/crd/bases/bus.volcano.sh_commands.yaml
 ```
 
 ## 7. Apply the custom volcano job resource interpreter at Karmada control plane
