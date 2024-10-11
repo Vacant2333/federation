@@ -10,7 +10,7 @@ This project originated from:
 
 # Quick start
 
-You can read [deploy guide](docs/deploy/deploy_guide.md).
+You can read [deploy guide](docs/deploy/README).
 
 # How does it run?
 

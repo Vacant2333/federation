@@ -156,7 +156,30 @@ export KUBECONFIG=/Users/vacant/.kube/karmada.config
 kubectl --context karmada-apiserver apply -f vcjob-resource-interpreter-customization.yaml
 ```
 
-## 8. Try the example Job
+## 8. Apply the All-Queue-PropagationPolicy at Karmada control plane
+
+By default, we **distribute all `Queues` from the control plane to every `Worker Cluster`**
+to prevent tasks from being dispatched to a `Worker Cluster` without a corresponding `Queue`.
+You can modify this `PropagationPolicy` according to your own needs.
+
+It should be noted
+that **this `PropagationPolicy` will be protected** in the form of labels
+to prevent unintended consequences due to accidental deletion.
+
+[Resource Deletion Protection](https://karmada.io/docs/next/administrator/configuration/resource-deletion-protection/)
+
+```bash
+# Switch to Karmada host kubeconfig.
+export KUBECONFIG=/Users/vacant/.kube/karmada.config
+
+# Apply the volcano job resource interpreter customization configuration.
+kubectl --context karmada-apiserver apply -f volcano-global-all-queue-propagation.yaml
+
+# Protect the PropagationPolicy.
+kubectl --context karmada-apiserver label propagationpolicy volcano-global-all-queue-propagation resourcetemplate.karmada.io/deletion-protected=Always
+```
+
+## 9. Try the example Job
 
 You need to run these commands on `docs/deploy` direction.
 
