@@ -39,12 +39,14 @@ func (ssn *Session) QueueInfoOrderFn(l, r interface{}) bool {
 		}
 	}
 
-	// If there is no queue order func, order queue by CreationTimestamp first, then by UID.
+	// If there is no Queue order func, order by CreationTimestamp first, then by UID.
 	lv := l.(*volcanoapi.QueueInfo)
 	rv := r.(*volcanoapi.QueueInfo)
+
 	if lv.Queue.CreationTimestamp.Equal(&rv.Queue.CreationTimestamp) {
 		return lv.UID < rv.UID
 	}
+
 	return lv.Queue.CreationTimestamp.Before(&rv.Queue.CreationTimestamp)
 }
 
@@ -55,11 +57,13 @@ func (ssn *Session) ResourceBindingInfoOrderFn(l, r interface{}) bool {
 		}
 	}
 
-	// If there is no resource binding info order func, order info by CreationTimestamp first, then by UID.
+	// If there is no ResourceBindingInfo order func, order by CreationTimestamp first, then by UID.
 	lv := l.(*api.ResourceBindingInfo)
 	rv := r.(*api.ResourceBindingInfo)
+
 	if lv.ResourceBinding.CreationTimestamp.Equal(&rv.ResourceBinding.CreationTimestamp) {
 		return lv.ResourceBinding.UID < rv.ResourceBinding.UID
 	}
+
 	return lv.ResourceBinding.CreationTimestamp.Before(&rv.ResourceBinding.CreationTimestamp)
 }

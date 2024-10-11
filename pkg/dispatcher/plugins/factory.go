@@ -18,10 +18,12 @@ package plugins
 
 import (
 	"volcano.sh/volcano-global/pkg/dispatcher/framework"
+	"volcano.sh/volcano-global/pkg/dispatcher/plugins/capacity"
 	"volcano.sh/volcano-global/pkg/dispatcher/plugins/priority"
 )
 
 // Register the plugins to plugin manager.
 func init() {
 	framework.PluginManagerInstance.RegisterPluginBuilder(priority.PluginName, priority.New)
+	framework.PluginManagerInstance.RegisterPluginBuilder(capacity.PluginName, capacity.New)
 }

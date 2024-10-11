@@ -17,7 +17,7 @@ limitations under the License.
 package priority
 
 import (
-	"volcano.sh/apis/pkg/apis/scheduling"
+	"k8s.io/klog/v2"
 
 	"volcano.sh/volcano-global/pkg/dispatcher/api"
 	"volcano.sh/volcano-global/pkg/dispatcher/framework"
@@ -36,9 +36,8 @@ func (pp *priorityPlugin) Name() string {
 }
 
 func (pp *priorityPlugin) OnSessionOpen(ssn *framework.Session) {
-	// Register the ResourceBinding and Queue order func
+	// Register the ResourceBinding order func
 	ssn.AddResourceBindingInfoOrderFn(pp.Name(), pp.resourceBindingInfoOrderFunc)
-	ssn.AddQueueInfoOrderFn(pp.Name(), pp.queueOrderFunc)
 }
 
 func (pp *priorityPlugin) OnSessionClose(_ *framework.Session) {}
@@ -47,26 +46,15 @@ func (pp *priorityPlugin) resourceBindingInfoOrderFunc(l, r interface{}) int {
 	lv := l.(*api.ResourceBindingInfo)
 	rv := r.(*api.ResourceBindingInfo)
 
+	klog.V(4).Infof("Priority plugin ResourceBindingOrder: <%s/%s> ResourceBinding priority %d, <%s/%s> ResourceBInding priority %d",
+		lv.ResourceBinding.Namespace, lv.ResourceBinding.Name, lv.Priority,
+		rv.ResourceBinding.Namespace, rv.ResourceBinding.Name, rv.Priority)
+
 	if lv.Priority == rv.Priority {
 		return 0
 	}
 
 	if lv.Priority > rv.Priority {
-		return -1
-	}
-
-	return 1
-}
-
-func (pp *priorityPlugin) queueOrderFunc(l, r interface{}) int {
-	lv := l.(*scheduling.Queue)
-	rv := r.(*scheduling.Queue)
-
-	if lv.UID == rv.UID {
-		return 0
-	}
-
-	if lv.UID > rv.UID {
 		return -1
 	}
 
